@@ -9,16 +9,20 @@ namespace XamarinPart2
 	{
 		public Home ()
 		{
-            var label = new Label             {                 Text = "Location App",                 TextColor = Color.White,                 HorizontalOptions = LayoutOptions.Center,                 VerticalOptions = LayoutOptions.Center,                 FontAttributes = FontAttributes.Bold,                 FontSize = 20,
+            var label = new Label             {                 Text = "Location App",                 TextColor = Color.White,                 HorizontalOptions = LayoutOptions.Center,                 VerticalOptions = LayoutOptions.Center,                 FontAttributes = FontAttributes.Bold,                 FontSize = 20
+               
+
                };
            
-            var text = new Label             {                 Text = "",                 HorizontalOptions = LayoutOptions.Center,                 VerticalOptions = LayoutOptions.StartAndExpand,                 FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))             };
+         
 
 			Label jokeText = new Label {
 				Text = "",
+                TextColor  = Color.White,
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions = LayoutOptions.StartAndExpand,
-				FontSize = Device.GetNamedSize (NamedSize.Medium, typeof (Label))
+				FontSize = 18,
+                FontAttributes = FontAttributes.Bold
 			};
 
             var button = new Button             {                 Text = "Find my location",                 HorizontalOptions = LayoutOptions.Center,                 WidthRequest = 180,                 BackgroundColor = Color.Purple,                 HeightRequest = 50,                 FontSize = 15,                 BorderRadius = 13,
@@ -28,15 +32,14 @@ namespace XamarinPart2
                 Uri uri = new Uri("https://ipinfo.io/json");
 				string obstring = await client.GetStringAsync (uri);
 				Joke joke = JsonConvert.DeserializeObject<Joke> (obstring);
-                jokeText.Text = joke.city + joke.region + joke.country;
-                DependencyService.Get<ITextToSpeech> ().Speak ("You are located in " + joke.city + " " + joke.region + " " + joke.country);
+                jokeText.Text = "You are located in " + " " + joke.city + " " + joke.region + " " + joke.country;
 			};
 
 			
 
 
 
-            var stackLayout = new StackLayout             {                 BackgroundColor = Color.Blue,                 VerticalOptions = LayoutOptions.StartAndExpand,                  Children = {                     label,  button, text                 }              } ;              Content = new ScrollView             {                 Content = stackLayout,                 BackgroundColor = Color.Blue,                 Padding =new Thickness(10, 60)                                            } ; 
+            var stackLayout = new StackLayout             {                 BackgroundColor = Color.FromRgb(255, 179, 179),                 VerticalOptions = LayoutOptions.CenterAndExpand,                  Children = {                     label,  button, jokeText                 }              } ;              Content = new ScrollView             {                 Content = stackLayout,                 BackgroundColor = Color.FromRgb(255, 179, 179),                 Padding =new Thickness(10, 60)                                            } ; 
 		}
 	}
 }
